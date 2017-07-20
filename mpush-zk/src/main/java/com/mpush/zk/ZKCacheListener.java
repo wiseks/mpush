@@ -62,6 +62,8 @@ public final class ZKCacheListener implements TreeCacheListener {
                 case NODE_UPDATED:
                     listener.onServiceUpdated(dataPath, Jsons.fromJson(data.getData(), CommonServiceNode.class));
                     break;
+			default:
+				break;
             }
             Logs.RSD.info("ZK node data change={}, nodePath={}, watchPath={}, ns={}");
         }

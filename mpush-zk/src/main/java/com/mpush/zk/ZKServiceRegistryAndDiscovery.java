@@ -43,7 +43,7 @@ public final class ZKServiceRegistryAndDiscovery extends BaseService implements 
     private final ZKClient client;
 
     public ZKServiceRegistryAndDiscovery() {
-        this.client = ZKClient.I;
+        this.client = ZKClient.zkClient;
     }
 
     @Override

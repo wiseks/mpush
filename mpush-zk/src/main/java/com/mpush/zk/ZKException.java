@@ -26,7 +26,12 @@ package com.mpush.zk;
  */
 public class ZKException extends RuntimeException {
 
-    public ZKException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ZKException() {
     }
 
     public ZKException(String message) {

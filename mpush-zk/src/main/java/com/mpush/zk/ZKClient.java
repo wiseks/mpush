@@ -40,15 +40,15 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class ZKClient extends BaseService {
-    public static final ZKClient I = I();
+    public static final ZKClient zkClient = getZkClient();
     private ZKConfig zkConfig;
     private CuratorFramework client;
     private TreeCache cache;
     private Map<String, String> ephemeralNodes = new LinkedHashMap<>(4);
     private Map<String, String> ephemeralSequentialNodes = new LinkedHashMap<>(1);
 
-    private synchronized static ZKClient I() {
-        return I == null ? new ZKClient() : I;
+    private synchronized static ZKClient getZkClient() {
+        return zkClient == null ? new ZKClient() : zkClient;
     }
 
     private ZKClient() {
