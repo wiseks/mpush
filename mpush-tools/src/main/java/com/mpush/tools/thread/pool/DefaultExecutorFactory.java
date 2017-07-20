@@ -22,15 +22,15 @@ package com.mpush.tools.thread.pool;
 import com.mpush.api.push.PushException;
 import com.mpush.api.spi.Spi;
 import com.mpush.api.spi.common.ExecutorFactory;
-import com.mpush.tools.config.CC;
+import com.mpush.tools.config.ConfigCenter;
 import com.mpush.tools.log.Logs;
 import com.mpush.tools.thread.NamedPoolThreadFactory;
 
 import java.util.concurrent.*;
 
-import static com.mpush.tools.config.CC.mp.thread.pool.ack_timer;
-import static com.mpush.tools.config.CC.mp.thread.pool.push_client;
-import static com.mpush.tools.config.CC.mp.thread.pool.push_task;
+import static com.mpush.tools.config.ConfigCenter.mp.thread.pool.ack_timer;
+import static com.mpush.tools.config.ConfigCenter.mp.thread.pool.push_client;
+import static com.mpush.tools.config.ConfigCenter.mp.thread.pool.push_task;
 import static com.mpush.tools.thread.ThreadNames.*;
 
 /**
@@ -62,19 +62,19 @@ public final class DefaultExecutorFactory implements ExecutorFactory {
             case EVENT_BUS:
                 config = ThreadPoolConfig
                         .build(T_EVENT_BUS)
-                        .setCorePoolSize(CC.mp.thread.pool.event_bus.min)
-                        .setMaxPoolSize(CC.mp.thread.pool.event_bus.max)
+                        .setCorePoolSize(ConfigCenter.mp.thread.pool.event_bus.min)
+                        .setMaxPoolSize(ConfigCenter.mp.thread.pool.event_bus.max)
                         .setKeepAliveSeconds(TimeUnit.SECONDS.toSeconds(10))
-                        .setQueueCapacity(CC.mp.thread.pool.event_bus.queue_size)
+                        .setQueueCapacity(ConfigCenter.mp.thread.pool.event_bus.queue_size)
                         .setRejectedPolicy(ThreadPoolConfig.REJECTED_POLICY_CALLER_RUNS);
                 break;
             case MQ:
                 config = ThreadPoolConfig
                         .build(T_MQ)
-                        .setCorePoolSize(CC.mp.thread.pool.mq.min)
-                        .setMaxPoolSize(CC.mp.thread.pool.mq.max)
+                        .setCorePoolSize(ConfigCenter.mp.thread.pool.mq.min)
+                        .setMaxPoolSize(ConfigCenter.mp.thread.pool.mq.max)
                         .setKeepAliveSeconds(TimeUnit.SECONDS.toSeconds(10))
-                        .setQueueCapacity(CC.mp.thread.pool.mq.queue_size)
+                        .setQueueCapacity(ConfigCenter.mp.thread.pool.mq.queue_size)
                         .setRejectedPolicy(ThreadPoolConfig.REJECTED_POLICY_CALLER_RUNS);
                 ;
                 break;

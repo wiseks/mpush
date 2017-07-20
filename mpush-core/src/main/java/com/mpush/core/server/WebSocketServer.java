@@ -28,7 +28,7 @@ import com.mpush.core.handler.AckHandler;
 import com.mpush.core.handler.BindUserHandler;
 import com.mpush.core.handler.HandshakeHandler;
 import com.mpush.netty.server.NettyTCPServer;
-import com.mpush.tools.config.CC;
+import com.mpush.tools.config.ConfigCenter;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
@@ -64,7 +64,7 @@ public final class WebSocketServer extends NettyTCPServer {
     }
 
     private WebSocketServer() {
-        super(CC.mp.net.ws_server_port);
+        super(ConfigCenter.mp.net.ws_server_port);
     }
 
     @Override
@@ -101,7 +101,7 @@ public final class WebSocketServer extends NettyTCPServer {
         pipeline.addLast(new HttpServerCodec());
         pipeline.addLast(new HttpObjectAggregator(65536));
         pipeline.addLast(new WebSocketServerCompressionHandler());
-        pipeline.addLast(new WebSocketServerProtocolHandler(CC.mp.net.ws_path, null, true));
+        pipeline.addLast(new WebSocketServerProtocolHandler(ConfigCenter.mp.net.ws_path, null, true));
         pipeline.addLast(new WebSocketIndexPageHandler());
         pipeline.addLast(getChannelHandler());
     }

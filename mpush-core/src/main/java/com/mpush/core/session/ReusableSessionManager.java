@@ -24,7 +24,7 @@ import com.mpush.api.spi.common.CacheManager;
 import com.mpush.api.spi.common.CacheManagerFactory;
 import com.mpush.common.CacheKeys;
 import com.mpush.tools.common.Strings;
-import com.mpush.tools.config.CC;
+import com.mpush.tools.config.ConfigCenter;
 import com.mpush.tools.crypto.MD5Utils;
 
 /**
@@ -34,7 +34,7 @@ import com.mpush.tools.crypto.MD5Utils;
  */
 public final class ReusableSessionManager {
     public static final ReusableSessionManager I = new ReusableSessionManager();
-    private final int expiredTime = CC.mp.core.session_expired_time;
+    private final int expiredTime = ConfigCenter.mp.core.session_expired_time;
     private final CacheManager cacheManager = CacheManagerFactory.create();
 
     public boolean cacheSession(ReusableSession session) {

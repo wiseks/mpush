@@ -24,9 +24,9 @@ import com.mpush.bootstrap.job.*;
 import com.mpush.core.server.*;
 
 import static com.mpush.common.ServerNodes.*;
-import static com.mpush.tools.config.CC.mp.net.tcpGateway;
-import static com.mpush.tools.config.CC.mp.net.udpGateway;
-import static com.mpush.tools.config.CC.mp.net.wsEnabled;
+import static com.mpush.tools.config.ConfigCenter.mp.net.tcpGateway;
+import static com.mpush.tools.config.ConfigCenter.mp.net.udpGateway;
+import static com.mpush.tools.config.ConfigCenter.mp.net.wsEnabled;
 
 /**
  * Created by yxx on 2016/5/14.

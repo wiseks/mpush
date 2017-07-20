@@ -27,7 +27,7 @@ import com.mpush.core.server.ConnectionServer;
 import com.mpush.tools.Jsons;
 import com.mpush.tools.Utils;
 import com.mpush.tools.common.Profiler;
-import com.mpush.tools.config.CC;
+import com.mpush.tools.config.ConfigCenter;
 import com.typesafe.config.ConfigRenderOptions;
 import io.netty.channel.*;
 import org.slf4j.Logger;
@@ -167,10 +167,10 @@ public final class AdminHandler extends SimpleChannelInboundHandler<String> {
             @Override
             public String handler(ChannelHandlerContext ctx, String args) {
                 if (Strings.isNullOrEmpty(args)) {
-                    return CC.cfg.root().render(ConfigRenderOptions.concise().setFormatted(true));
+                    return ConfigCenter.cfg.root().render(ConfigRenderOptions.concise().setFormatted(true));
                 }
-                if (CC.cfg.hasPath(args)) {
-                    return CC.cfg.getAnyRef(args).toString();
+                if (ConfigCenter.cfg.hasPath(args)) {
+                    return ConfigCenter.cfg.getAnyRef(args).toString();
                 }
                 return "key [" + args + "] not find in config";
             }

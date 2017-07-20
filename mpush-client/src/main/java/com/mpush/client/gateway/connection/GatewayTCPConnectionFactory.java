@@ -42,7 +42,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static com.mpush.api.srd.ServiceNames.GATEWAY_SERVER;
-import static com.mpush.tools.config.CC.mp.net.gateway_client_num;
+import static com.mpush.tools.config.ConfigCenter.mp.net.gateway_client_num;
 
 /**
  * Created by yxx on 2016/5/17.

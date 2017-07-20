@@ -20,7 +20,7 @@
 package com.mpush.tools.config;
 
 import com.mpush.tools.Utils;
-import com.mpush.tools.config.CC.mp.net.public_ip_mapping;
+import com.mpush.tools.config.ConfigCenter.mp.net.public_ip_mapping;
 
 /**
  * Created by yxx on 2016/5/18.
@@ -35,8 +35,8 @@ public class ConfigManager {
 
     public int getHeartbeat(int min, int max) {
         return Math.max(
-                CC.mp.core.min_heartbeat,
-                Math.min(max, CC.mp.core.max_heartbeat)
+                ConfigCenter.mp.core.min_heartbeat,
+                Math.min(max, ConfigCenter.mp.core.max_heartbeat)
         );
     }
 

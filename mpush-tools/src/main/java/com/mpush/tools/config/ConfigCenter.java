@@ -19,17 +19,22 @@
 
 package com.mpush.tools.config;
 
-import com.mpush.api.spi.net.DnsMapping;
-import com.mpush.tools.common.Profiler;
-import com.mpush.tools.config.data.RedisNode;
-import com.typesafe.config.*;
+import static java.util.stream.Collectors.toCollection;
 
 import java.io.File;
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static java.util.stream.Collectors.toCollection;
+import com.mpush.api.spi.net.DnsMapping;
+import com.mpush.tools.config.data.RedisNode;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigList;
 
 /**
  * mpush 配置中心
@@ -37,7 +42,7 @@ import static java.util.stream.Collectors.toCollection;
  *
  * @author ohun@live.cn
  */
-public interface CC {
+public interface ConfigCenter {
     Config cfg = load();
 
     static Config load() {
@@ -54,7 +59,7 @@ public interface CC {
     }
 
     interface mp {
-        Config cfg = CC.cfg.getObject("mp").toConfig();
+        Config cfg = ConfigCenter.cfg.getObject("mp").toConfig();
         String log_dir = cfg.getString("log-dir");
         String log_level = cfg.getString("log-level");
         String log_conf_path = cfg.getString("log-conf-path");
@@ -77,8 +82,8 @@ public interface CC {
             String epoll_provider = cfg.getString("epoll-provider");
 
             static boolean useNettyEpoll() {
-                if (!"netty".equals(CC.mp.core.epoll_provider)) return false;
-                String name = CC.cfg.getString("os.name").toLowerCase(Locale.UK).trim();
+                if (!"netty".equals(ConfigCenter.mp.core.epoll_provider)) return false;
+                String name = ConfigCenter.cfg.getString("os.name").toLowerCase(Locale.UK).trim();
                 return name.startsWith("linux");//只在linux下使用netty提供的epoll库
             }
         }

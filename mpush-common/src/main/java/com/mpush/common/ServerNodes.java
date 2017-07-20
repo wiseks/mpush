@@ -23,7 +23,7 @@ import com.mpush.api.srd.CommonServiceNode;
 import com.mpush.api.srd.ServiceNames;
 import com.mpush.api.srd.ServiceNode;
 import com.mpush.tools.Utils;
-import com.mpush.tools.config.CC;
+import com.mpush.tools.config.ConfigCenter;
 import com.mpush.tools.config.ConfigManager;
 
 import static com.mpush.api.srd.ServiceNames.ATTR_PUBLIC_IP;
@@ -42,7 +42,7 @@ public class ServerNodes {
     private static ServiceNode cs() {
         CommonServiceNode node = new CommonServiceNode();
         node.setHost(Utils.getLocalIp());
-        node.setPort(CC.mp.net.connect_server_port);
+        node.setPort(ConfigCenter.mp.net.connect_server_port);
         node.setPersistent(false);
         node.setServiceName(ServiceNames.CONN_SERVER);
         node.addAttr(ATTR_PUBLIC_IP, ConfigManager.I.getPublicIp());
@@ -52,7 +52,7 @@ public class ServerNodes {
     private static ServiceNode ws() {
         CommonServiceNode node = new CommonServiceNode();
         node.setHost(Utils.getLocalIp());
-        node.setPort(CC.mp.net.ws_server_port);
+        node.setPort(ConfigCenter.mp.net.ws_server_port);
         node.setPersistent(false);
         node.setServiceName(ServiceNames.WS_SERVER);
         node.addAttr(ATTR_PUBLIC_IP, ConfigManager.I.getPublicIp());
@@ -62,7 +62,7 @@ public class ServerNodes {
     private static ServiceNode gs() {
         CommonServiceNode node = new CommonServiceNode();
         node.setHost(Utils.getLocalIp());
-        node.setPort(CC.mp.net.gateway_server_port);
+        node.setPort(ConfigCenter.mp.net.gateway_server_port);
         node.setPersistent(false);
         node.setServiceName(ServiceNames.GATEWAY_SERVER);
         return node;

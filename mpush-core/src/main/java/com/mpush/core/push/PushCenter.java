@@ -30,7 +30,7 @@ import com.mpush.common.qps.GlobalFlowControl;
 import com.mpush.common.qps.RedisFlowControl;
 import com.mpush.monitor.jmx.MBeanRegistry;
 import com.mpush.monitor.jmx.mxbean.PushCenterBean;
-import com.mpush.tools.config.CC;
+import com.mpush.tools.config.ConfigCenter;
 import com.mpush.tools.thread.pool.ThreadPoolManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,9 +38,9 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static com.mpush.tools.config.CC.mp.push.flow_control.broadcast.duration;
-import static com.mpush.tools.config.CC.mp.push.flow_control.broadcast.limit;
-import static com.mpush.tools.config.CC.mp.push.flow_control.broadcast.max;
+import static com.mpush.tools.config.ConfigCenter.mp.push.flow_control.broadcast.duration;
+import static com.mpush.tools.config.ConfigCenter.mp.push.flow_control.broadcast.limit;
+import static com.mpush.tools.config.ConfigCenter.mp.push.flow_control.broadcast.max;
 
 /**
  * Created by ohun on 16/10/24.
@@ -53,7 +53,7 @@ public final class PushCenter extends BaseService implements MessagePusher {
     public static final PushCenter I = new PushCenter();
 
     private final GlobalFlowControl globalFlowControl = new GlobalFlowControl(
-            CC.mp.push.flow_control.global.limit, CC.mp.push.flow_control.global.max, CC.mp.push.flow_control.global.duration
+            ConfigCenter.mp.push.flow_control.global.limit, ConfigCenter.mp.push.flow_control.global.max, ConfigCenter.mp.push.flow_control.global.duration
     );
 
     private final AtomicLong taskNum = new AtomicLong();
@@ -86,7 +86,7 @@ public final class PushCenter extends BaseService implements MessagePusher {
 
     @Override
     protected void doStart(Listener listener) throws Throwable {
-        if (CC.mp.net.udpGateway() || CC.mp.thread.pool.push_task > 0) {
+        if (ConfigCenter.mp.net.udpGateway() || ConfigCenter.mp.thread.pool.push_task > 0) {
             executor = new CustomJDKExecutor(ThreadPoolManager.I.getPushTaskTimer());
         } else {//实际情况使用EventLoo并没有更快，还有待测试
             executor = new NettyEventLoopExecutor();

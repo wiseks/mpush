@@ -204,7 +204,11 @@ public class ZKSyncMap<K, V> implements Map<K, V> {
     }
 
     private static class KeyValue<K, V> implements Serializable {
-        private K key;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -5979244476071233892L;
+		private K key;
         private V value;
 
         private KeyValue(K key, V value) {

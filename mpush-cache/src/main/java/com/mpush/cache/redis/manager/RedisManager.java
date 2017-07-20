@@ -23,7 +23,7 @@ import com.google.common.collect.Lists;
 import com.mpush.api.spi.common.*;
 import com.mpush.cache.redis.connection.RedisConnectionFactory;
 import com.mpush.tools.Jsons;
-import com.mpush.tools.config.CC;
+import com.mpush.tools.config.ConfigCenter;
 import com.mpush.tools.log.Logs;
 import com.mpush.tools.thread.pool.ThreadPoolManager;
 import redis.clients.jedis.*;
@@ -43,10 +43,10 @@ public final class RedisManager implements CacheManager {
 
     public void init() {
         Logs.CACHE.info("begin init redis...");
-        factory.setPassword(CC.mp.redis.password);
-        factory.setPoolConfig(CC.mp.redis.getPoolConfig(JedisPoolConfig.class));
-        factory.setRedisServers(CC.mp.redis.nodes);
-        factory.setCluster(CC.mp.redis.isCluster());
+        factory.setPassword(ConfigCenter.mp.redis.password);
+        factory.setPoolConfig(ConfigCenter.mp.redis.getPoolConfig(JedisPoolConfig.class));
+        factory.setRedisServers(ConfigCenter.mp.redis.nodes);
+        factory.setCluster(ConfigCenter.mp.redis.isCluster());
         factory.init();
         test();
         Logs.CACHE.info("init redis success...");

@@ -25,7 +25,7 @@ import com.mpush.api.service.Server;
 import com.mpush.api.service.ServiceException;
 import com.mpush.netty.codec.PacketDecoder;
 import com.mpush.netty.codec.PacketEncoder;
-import com.mpush.tools.config.CC;
+import com.mpush.tools.config.ConfigCenter;
 import com.mpush.tools.thread.ThreadNames;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -293,7 +293,7 @@ public abstract class NettyTCPServer extends BaseService implements Server {
     }
 
     protected boolean useNettyEpoll() {
-        if (CC.mp.core.useNettyEpoll()) {
+        if (ConfigCenter.mp.core.useNettyEpoll()) {
             try {
                 Native.offsetofEpollData();
                 return true;

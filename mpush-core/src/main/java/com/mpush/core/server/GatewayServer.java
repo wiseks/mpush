@@ -24,9 +24,9 @@ import com.mpush.api.service.Listener;
 import com.mpush.common.MessageDispatcher;
 import com.mpush.core.handler.GatewayPushHandler;
 import com.mpush.netty.server.NettyTCPServer;
-import com.mpush.tools.config.CC;
-import com.mpush.tools.config.CC.mp.net.rcv_buf;
-import com.mpush.tools.config.CC.mp.net.snd_buf;
+import com.mpush.tools.config.ConfigCenter;
+import com.mpush.tools.config.ConfigCenter.mp.net.rcv_buf;
+import com.mpush.tools.config.ConfigCenter.mp.net.snd_buf;
 import com.mpush.tools.thread.NamedPoolThreadFactory;
 import com.mpush.tools.thread.ThreadNames;
 import io.netty.bootstrap.ServerBootstrap;
@@ -39,9 +39,9 @@ import java.nio.channels.spi.SelectorProvider;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import static com.mpush.tools.config.CC.mp.net.traffic_shaping.gateway_server.*;
-import static com.mpush.tools.config.CC.mp.net.write_buffer_water_mark.gateway_server_high;
-import static com.mpush.tools.config.CC.mp.net.write_buffer_water_mark.gateway_server_low;
+import static com.mpush.tools.config.ConfigCenter.mp.net.traffic_shaping.gateway_server.*;
+import static com.mpush.tools.config.ConfigCenter.mp.net.write_buffer_water_mark.gateway_server_high;
+import static com.mpush.tools.config.ConfigCenter.mp.net.write_buffer_water_mark.gateway_server_low;
 import static com.mpush.tools.thread.ThreadNames.T_TRAFFIC_SHAPING;
 
 /**
@@ -69,7 +69,7 @@ public final class GatewayServer extends NettyTCPServer {
     }
 
     private GatewayServer() {
-        super(CC.mp.net.gateway_server_port);
+        super(ConfigCenter.mp.net.gateway_server_port);
     }
 
     @Override
@@ -80,7 +80,7 @@ public final class GatewayServer extends NettyTCPServer {
         connectionManager = new ServerConnectionManager(false);
         channelHandler = new ServerChannelHandler(false, connectionManager, receiver);
 
-        if (CC.mp.net.traffic_shaping.gateway_server.enabled) {//启用流量整形，限流
+        if (ConfigCenter.mp.net.traffic_shaping.gateway_server.enabled) {//启用流量整形，限流
             trafficShapingExecutor = Executors.newSingleThreadScheduledExecutor(new NamedPoolThreadFactory(T_TRAFFIC_SHAPING));
             trafficShapingHandler = new GlobalChannelTrafficShapingHandler(
                     trafficShapingExecutor,
@@ -119,7 +119,7 @@ public final class GatewayServer extends NettyTCPServer {
 
     @Override
     protected int getWorkThreadNum() {
-        return CC.mp.thread.pool.gateway_server_work;
+        return ConfigCenter.mp.thread.pool.gateway_server_work;
     }
 
     @Override
@@ -167,17 +167,17 @@ public final class GatewayServer extends NettyTCPServer {
 
     @Override
     public ChannelFactory<? extends ServerChannel> getChannelFactory() {
-        if (CC.mp.net.tcpGateway()) return super.getChannelFactory();
-        if (CC.mp.net.udtGateway()) return NioUdtProvider.BYTE_ACCEPTOR;
-        if (CC.mp.net.sctpGateway()) return NioSctpServerChannel::new;
+        if (ConfigCenter.mp.net.tcpGateway()) return super.getChannelFactory();
+        if (ConfigCenter.mp.net.udtGateway()) return NioUdtProvider.BYTE_ACCEPTOR;
+        if (ConfigCenter.mp.net.sctpGateway()) return NioSctpServerChannel::new;
         return super.getChannelFactory();
     }
 
     @Override
     public SelectorProvider getSelectorProvider() {
-        if (CC.mp.net.tcpGateway()) return super.getSelectorProvider();
-        if (CC.mp.net.udtGateway()) return NioUdtProvider.BYTE_PROVIDER;
-        if (CC.mp.net.sctpGateway()) return super.getSelectorProvider();
+        if (ConfigCenter.mp.net.tcpGateway()) return super.getSelectorProvider();
+        if (ConfigCenter.mp.net.udtGateway()) return NioUdtProvider.BYTE_PROVIDER;
+        if (ConfigCenter.mp.net.sctpGateway()) return super.getSelectorProvider();
         return super.getSelectorProvider();
     }
 }

@@ -19,7 +19,7 @@
 
 package com.mpush.tools.log;
 
-import com.mpush.tools.config.CC;
+import com.mpush.tools.config.ConfigCenter;
 import com.typesafe.config.ConfigRenderOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,12 +36,12 @@ public interface Logs {
 
     static boolean init() {
         if (logInit) return true;
-        System.setProperty("log.home", CC.mp.log_dir);
-        System.setProperty("log.root.level", CC.mp.log_level);
-        System.setProperty(CONFIG_FILE_PROPERTY, CC.mp.log_conf_path);
+        System.setProperty("log.home", ConfigCenter.mp.log_dir);
+        System.setProperty("log.root.level", ConfigCenter.mp.log_level);
+        System.setProperty(CONFIG_FILE_PROPERTY, ConfigCenter.mp.log_conf_path);
         LoggerFactory
                 .getLogger("console")
-                .info(CC.mp.cfg.root().render(ConfigRenderOptions.concise().setFormatted(true)));
+                .info(ConfigCenter.mp.cfg.root().render(ConfigRenderOptions.concise().setFormatted(true)));
         return true;
     }
 
